@@ -1,5 +1,3 @@
-import process from "process";
-
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 import { DeviceDetailInterface, DeviceInfo } from "./interface";
