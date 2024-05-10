@@ -1,4 +1,4 @@
-const BASE_URL = "http://192.168.1.8:3001/api"
+const BASE_URL = process.env.BACKEND_URL;
 
 import { DeviceDetailInterface, DeviceInfo } from "./interface";
 
