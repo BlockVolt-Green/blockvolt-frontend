@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 export default function DeviceDetail() {
   const { state } = useLocation();
-  const { address } = state;
+  const address = state?.address;
   const [data, setData] = useState<DeviceDetailInterface | null>(null);
   const { toast } = useToast();
 
@@ -45,8 +45,11 @@ export default function DeviceDetail() {
 
   useEffect(() => {
     getData();
-    verifyData(address, "dasd");
-  }, []);
+
+    if (address) {
+      verifyData(address, "dasd");
+    }
+  }, [address, getData]);
 
   return (
     <>

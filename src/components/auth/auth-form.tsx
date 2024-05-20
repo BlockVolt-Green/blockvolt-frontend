@@ -44,7 +44,26 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             />
           </div>
 
-          <Button disabled={isLoading} onClick={() => navigate("/")}>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="password">
+              Password
+            </Label>
+
+            <Input
+              id="password"
+              placeholder="test@blockvolt.com"
+              type="password"
+              autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect="off"
+              disabled={isLoading}
+            />
+          </div>
+
+          <Button
+            disabled={isLoading}
+            onClick={() => navigate("/device-detail")}
+          >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
@@ -65,7 +84,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </div>
       </div>
 
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Button variant="outline" type="button" disabled={isLoading && false}>
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (

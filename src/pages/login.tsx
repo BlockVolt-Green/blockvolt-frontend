@@ -24,7 +24,7 @@ export default function AuthenticationPage() {
         />
       </div>
 
-      <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           to="/examples/authentication"
           className={cn(
@@ -50,7 +50,7 @@ export default function AuthenticationPage() {
             >
               <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
             </svg>
-            Blockvorld
+            Blockvolt
           </div>
           <div className="relative z-20 mt-auto">
             {/* <blockquote className="space-y-2">
@@ -67,11 +67,9 @@ export default function AuthenticationPage() {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
-                Create an account
-              </h1>
+              <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
+                Enter your email below to sign in to your account
               </p>
             </div>
             <UserAuthForm />
