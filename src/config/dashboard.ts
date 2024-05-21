@@ -20,5 +20,10 @@ export const monitorConfig: DashboardConfig = {
       href: "/device-detail",
       icon: "users",
     },
+    {
+      title: "Add Devide",
+      href: "/add-device",
+      icon: "users",
+    },
   ],
 };
