@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import DashboardLayout from "@/components/layouts/dashboard-layout";
 
 export default function DeviceDetail() {
   const { state } = useLocation();
@@ -52,7 +53,7 @@ export default function DeviceDetail() {
   }, [address, getData]);
 
   return (
-    <>
+    <DashboardLayout loading={false}>
       <Card className="w-[95%]">
         <CardHeader>
           <CardTitle>Device {data?.id}</CardTitle>
@@ -114,6 +115,6 @@ export default function DeviceDetail() {
           );
         })}
       </div>
-    </>
+    </DashboardLayout>
   );
 }

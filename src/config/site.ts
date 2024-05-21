@@ -1,5 +1,5 @@
 export const siteConfig: SiteConfig = {
-  name: "Monitrum",
+  name: "Blockvolt",
   description: "Making developers' lives easier on Arbitrum",
   url: "",
   ogImage: "",

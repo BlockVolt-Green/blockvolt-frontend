@@ -45,11 +45,11 @@ const MainLayout: React.FC<{
           <MainNav items={marketingConfig.mainNav} />
 
           <nav>
-            <Link to="/pay">
+            {/* <Link to="/pay">
               <Button variant="secondary" className="mr-4">
                 Pay
               </Button>
-            </Link>
+            </Link> */}
 
             <Button onClick={handleConnect} className="max-w-32">
               {/* {address ? `${address.slice(0, 10)}...` : "Connect Wallet"} */}
