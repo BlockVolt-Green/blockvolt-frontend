@@ -1,3 +1,4 @@
+import { getDevices } from "@/apis";
 import { Icons } from "@/components/icons";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
 import { Button } from "@/components/ui/button";
@@ -10,9 +11,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Link } from "react-router-dom";
+import { DeviceInfo } from "@/interface";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AllDevicesPage() {
+
+  const [devices, setDevices] = useState<DeviceInfo[]>([]);
+  const navigate = useNavigate();
+
+  const fetchDevices = async () => {
+    const devices = await getDevices();
+
+    if (devices) {
+      setDevices(devices);
+    } else {
+      console.log("devices are null");
+    }
+  };
+
+  useEffect(() => {
+    fetchDevices();
+  }, []);
+
   return (
     <DashboardLayout loading={false}>
       <h1 className="text-3xl font-bold">All Devices</h1>
@@ -26,45 +47,36 @@ export default function AllDevicesPage() {
               <TableHead>Address</TableHead>
               <TableHead>Machine ID</TableHead>
               <TableHead>User ID</TableHead>
-              <TableHead>Data</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-right">Info</TableHead>
+              <TableHead className="text-right">Delete</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
-            {[
-              {
-                id: 1,
-                address: "0x1234567890abcdef",
-                machineid: "M123",
-                userid: "U123",
-                data: "Data",
-              },
-              {
-                id: 2,
-                address: "0x1234567890abcdef",
-                machineid: "M123",
-                userid: "U123",
-                data: "Data",
-              },
-            ].map(({ id, address, machineid, userid, data }) => (
+            {devices.map(({ id, address, machineId, userId }) => (
               <TableRow key={id}>
                 <TableCell className="font-medium">{id}</TableCell>
                 <TableCell>{address}</TableCell>
-                <TableCell>{machineid}</TableCell>
-                <TableCell>{userid}</TableCell>
-                <TableCell>{data}</TableCell>
+                <TableCell>{machineId}</TableCell>
+                <TableCell>{userId}</TableCell>
                 <TableCell className="text-right">
-                  <Link to={"/device-detail"} className="mr-2">
-                    <Button className="rounded-full">
+                    <Button className="rounded-full"
+                      onClick={() =>
+                        navigate("/device-detail", {
+                          state: { address: address },
+                        })
+                      }
+                    >
                       <Icons.info className="h-4 w-4" />
                     </Button>
-                  </Link>
-
-                  {/* <Button className="rounded-full" onClick={() => {}}>
-                <Icons.trash className="h-4 w-4" />
-              </Button> */}
                 </TableCell>
+
+                <TableCell className="text-right">
+                  <Button className="rounded-full text-red-500 bg-gray-200" onClick={() => {}}>
+                  <Icons.trash className="h-4 w-4" />
+                </Button>
+                </TableCell>
+
               </TableRow>
             ))}
           </TableBody>
