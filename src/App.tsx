@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
 
-import DeviceDetail from "./pages/DeviceDetial";
+import DeviceDetail from "./pages/device";
 import { Toaster } from "@/components/ui/toaster";
 
 function App() {

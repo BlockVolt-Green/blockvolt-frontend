@@ -2,14 +2,12 @@ import {
   AlertTriangle,
   ArrowRight,
   Check,
-  CheckSquare,
   ChevronLeft,
   ChevronRight,
   Command,
   CreditCard,
   File,
   FileText,
-  FileType,
   HelpCircle,
   Image,
   Laptop,
@@ -36,13 +34,12 @@ import {
   Home,
   ChevronsUpDown,
   FileIcon,
-  FileTextIcon,
   FileImage,
   ArrowLeft,
   type XIcon as LucideIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-export type Icon = typeof LucideIcon
+export type Icon = typeof LucideIcon;
 
 export const Icons = {
   logo: Command,
@@ -99,4 +96,4 @@ export const Icons = {
   twitter: Twitter,
   check: Check,
   users: Users,
-}
+};
