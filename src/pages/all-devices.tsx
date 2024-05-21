@@ -1,4 +1,4 @@
-import { getDevices } from "@/apis";
+import { deleteDevice, getDevices } from "@/apis";
 import { Icons } from "@/components/icons";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
 import { Button } from "@/components/ui/button";
@@ -72,7 +72,7 @@ export default function AllDevicesPage() {
                 </TableCell>
 
                 <TableCell className="text-right">
-                  <Button className="rounded-full text-red-500 bg-gray-200" onClick={() => {}}>
+                  <Button className="rounded-full text-red-500 bg-gray-200" onClick={() => {deleteDevice(id.toString())}}>
                   <Icons.trash className="h-4 w-4" />
                 </Button>
                 </TableCell>

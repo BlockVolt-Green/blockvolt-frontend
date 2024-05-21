@@ -28,6 +28,71 @@ export const getDevices = async (): Promise<DeviceInfo[] | null> => {
 
 }
 
+export const addDevice = async (address: string, machineId: string): Promise<DeviceInfo[] | null> => {
+
+    try {
+
+        console.log(address,
+            machineId)
+        let resp = await fetch(BASE_URL+"/device/add", {
+            method: "POST", 
+            headers: {
+                "content": "application/json",
+                "Authorization": localStorage.getItem("token")
+            },
+            body: new URLSearchParams({
+                "address": address,
+                "machineId": machineId
+            })
+        });
+
+        console.log(resp.status)
+        
+        if (resp.status === 201) {
+            let json: DeviceInfo[] = await resp.json();
+            console.log(json)
+            return json
+        }
+
+        else {
+            return null
+        }
+
+
+    } catch(e: any) {
+
+        console.log(e)
+        return null
+
+    }
+
+}
+
+export const deleteDevice = async (deviceId: string) => {
+
+    try {
+
+
+        await fetch(BASE_URL+"/device/delete", {
+            method: "POST", 
+            headers: {
+                "content": "application/json",
+                "Authorization": localStorage.getItem("token")
+            },
+            body: new URLSearchParams({
+                "id": deviceId,
+            })
+        });
+
+
+    } catch(e: any) {
+
+        console.log(e)
+
+    }
+
+}
+
 
 export const getDeviceDetail = async (address: String): Promise<DeviceDetailInterface | null> => {
 
@@ -99,8 +164,8 @@ export const login = async (email: string,password: string): Promise<string | nu
                 "content": "application/json"
             },
             body: new URLSearchParams({
-                "email": "swapnil@gmail.com",
-                "password": "Swapnil"
+                "email": email,
+                "password": password
             })
         });
 
