@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
 
@@ -6,8 +6,40 @@ import DeviceDetail from "./pages/device-details";
 import { Toaster } from "@/components/ui/toaster";
 import AllDevicesPage from "./pages/all-devices";
 import AddDevicesPage from "./pages/add-device";
+import { useEffect } from "react";
+import { checkLogin } from "./apis";
+import { useAtom } from "jotai";
+import { isLoggedInAtom } from "./atoms/auth";
 
 function App() {
+
+  let [isLoggedIn,setIsLoggedIn] = useAtom(isLoggedInAtom);
+  let navigate = useNavigate();
+
+  const checkLoginCallback = async () => {
+
+    let isLoggedin = await checkLogin();
+
+    setIsLoggedIn(isLoggedin);
+
+  }
+
+  useEffect(()=> {
+
+    if (isLoggedIn) {
+      navigate("/")
+    } else {
+      navigate("/login")
+    }
+
+  },[isLoggedIn])
+
+  useEffect(()=> {
+
+    checkLoginCallback();
+
+  },[])
+
   return (
     <div className="App">
       <Routes>

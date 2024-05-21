@@ -8,12 +8,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
+import { login } from "@/apis";
+import { useAtom } from "jotai";
+import { isLoggedInAtom } from "@/atoms/auth";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+
+  const emailRef = React.useRef<HTMLInputElement>();
+  const passwordRef = React.useRef<HTMLInputElement>();
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
+  const [_, setIsLoggedin] = useAtom(isLoggedInAtom);
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -22,6 +30,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
+  }
+
+  const submit = async ()=> {
+    let token = await login(emailRef?.current?.value, passwordRef?.current?.value);
+
+    if(token !== null) {
+      setIsLoggedin(true);
+      navigate("/")
+    }
+    else {
+      alert("Wrong Credential")
+    }
   }
 
   return (
@@ -41,6 +61,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
+              ref={emailRef}
             />
           </div>
 
@@ -57,12 +78,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
+              ref={passwordRef}
             />
           </div>
 
           <Button
             disabled={isLoading}
-            onClick={() => navigate("/device-detail")}
+            onClick={submit}
           >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
