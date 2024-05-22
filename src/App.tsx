@@ -19,7 +19,7 @@ function App() {
   const checkLoginCallback = async () => {
 
     let isLoggedin = await checkLogin();
-
+    console.log(isLoggedIn)
     setIsLoggedIn(isLoggedin);
 
   }

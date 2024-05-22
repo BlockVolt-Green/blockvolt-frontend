@@ -54,7 +54,8 @@ export default function AllDevicesPage() {
               <TableHead>Address</TableHead>
               <TableHead>Machine ID</TableHead>
               <TableHead>User ID</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-right">Info</TableHead>
+              <TableHead className="text-right">Delete</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -74,7 +75,9 @@ export default function AllDevicesPage() {
                   >
                     <Icons.info className="h-4 w-4" />
                   </Button>
+                </TableCell>
 
+                <TableCell className="text-right">
                   <Button
                     className="rounded-full text-red-500 bg-gray-200"
                     onClick={() => {
@@ -84,6 +87,8 @@ export default function AllDevicesPage() {
                     <Icons.trash className="h-4 w-4" />
                   </Button>
                 </TableCell>
+
+
               </TableRow>
             ))}
           </TableBody>

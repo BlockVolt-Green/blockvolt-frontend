@@ -6,13 +6,18 @@ import { useEffect, useState } from "react";
 import { MainNav } from "@/components/main-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
+import { useAtom } from "jotai";
+import { isLoggedInAtom } from "@/atoms/auth";
+import { useNavigate } from "react-router-dom";
 
-import { Link } from "react-router-dom";
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [color, setcolor] = useState(false);
+
+  const [_, setIsLoggedin] = useAtom(isLoggedInAtom);
+  const navigate = useNavigate();
 
   async function handleConnect() {
     try {
@@ -20,6 +25,12 @@ const MainLayout: React.FC<{
     } catch (e) {
       console.error("failed to connect", e);
     }
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+    setIsLoggedin(false);
+    navigate("/login")
   }
 
   const changeNavBg = () => {
@@ -51,9 +62,8 @@ const MainLayout: React.FC<{
               </Button>
             </Link> */}
 
-            <Button onClick={handleConnect} className="max-w-32">
-              {/* {address ? `${address.slice(0, 10)}...` : "Connect Wallet"} */}
-              Connect
+            <Button onClick={()=> localStorage.removeItem("token")} className="max-w-32">
+              Logout
             </Button>
           </nav>
         </div>
