@@ -9,27 +9,20 @@ import {
 } from "@/components/ui/card";
 import { DeviceDetailInterface } from "@/interface";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
 
 export default function DeviceDetail() {
-  const { state } = useLocation();
-  const address = state?.address;
+  const [searchParams] = useSearchParams();
+  const address = searchParams.get("address");
+
   const [data, setData] = useState<DeviceDetailInterface | null>(null);
   const { toast } = useToast();
 
-  const getData = async () => {
-    let apiData = await getDeviceDetail(address);
-
-    if (apiData !== null) {
-      setData(apiData);
-    }
-  };
-
   const verify = async (data: string) => {
-    let res = await verifyData(address, data);
+    const res = await verifyData(address, data);
 
     if (res === false) {
       toast({
@@ -45,12 +38,20 @@ export default function DeviceDetail() {
   };
 
   useEffect(() => {
+    async function getData() {
+      const apiData = await getDeviceDetail(address);
+
+      if (apiData !== null) {
+        setData(apiData);
+      }
+    }
+
     getData();
 
     if (address) {
       verifyData(address, "dasd");
     }
-  }, [address, getData]);
+  }, [address]);
 
   return (
     <DashboardLayout loading={false}>

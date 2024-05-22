@@ -4,7 +4,7 @@ import { DeviceDetailInterface, DeviceInfo } from "./interface";
 
 export const getDevices = async (): Promise<DeviceInfo[] | null> => {
   try {
-    let resp = await fetch(BASE_URL + "/device/all/", {
+    const resp = await fetch(BASE_URL + "/device/all/", {
       method: "GET",
       headers: {
         content: "application/json",
@@ -12,7 +12,7 @@ export const getDevices = async (): Promise<DeviceInfo[] | null> => {
       },
     });
 
-    let json: DeviceInfo[] = await resp.json();
+    const json: DeviceInfo[] = await resp.json();
     return json;
   } catch (e: any) {
     console.log(e);

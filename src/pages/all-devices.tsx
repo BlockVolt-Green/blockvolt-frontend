@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AllDevicesPage() {
-
   const [devices, setDevices] = useState<DeviceInfo[]>([]);
   const navigate = useNavigate();
 
@@ -47,8 +46,7 @@ export default function AllDevicesPage() {
               <TableHead>Address</TableHead>
               <TableHead>Machine ID</TableHead>
               <TableHead>User ID</TableHead>
-              <TableHead className="text-right">Info</TableHead>
-              <TableHead className="text-right">Delete</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -60,23 +58,24 @@ export default function AllDevicesPage() {
                 <TableCell>{machineId}</TableCell>
                 <TableCell>{userId}</TableCell>
                 <TableCell className="text-right">
-                    <Button className="rounded-full"
-                      onClick={() =>
-                        navigate("/device-detail", {
-                          state: { address: address },
-                        })
-                      }
-                    >
-                      <Icons.info className="h-4 w-4" />
-                    </Button>
-                </TableCell>
+                  <Button
+                    className="rounded-full mr-2"
+                    onClick={() =>
+                      navigate(`/device-detail?address=${address}`)
+                    }
+                  >
+                    <Icons.info className="h-4 w-4" />
+                  </Button>
 
-                <TableCell className="text-right">
-                  <Button className="rounded-full text-red-500 bg-gray-200" onClick={() => {deleteDevice(id.toString())}}>
-                  <Icons.trash className="h-4 w-4" />
-                </Button>
+                  <Button
+                    className="rounded-full text-red-500 bg-gray-200"
+                    onClick={() => {
+                      deleteDevice(id.toString());
+                    }}
+                  >
+                    <Icons.trash className="h-4 w-4" />
+                  </Button>
                 </TableCell>
-
               </TableRow>
             ))}
           </TableBody>
