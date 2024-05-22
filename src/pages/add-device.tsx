@@ -7,25 +7,24 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AddDevicesPage() {
-
   const machineIdRef = useRef<HTMLInputElement>();
   const addressRef = useRef<HTMLInputElement>();
 
   const navigate = useNavigate();
 
   const onSubmit = async () => {
-    
-    let device = await addDevice(machineIdRef.current.value,addressRef.current.value);
+    const device = await addDevice(
+      machineIdRef.current.value,
+      addressRef.current.value
+    );
 
     if (device === null) {
       alert("Cannot add device");
-      return
+      return;
+    } else {
+      navigate("/devices");
     }
-
-    navigate("/devices");
-
-  }
-
+  };
 
   return (
     <DashboardLayout loading={false}>
@@ -65,9 +64,7 @@ export default function AddDevicesPage() {
         </div>
 
         <div>
-          <Button onClick={onSubmit}>
-            Add Device
-          </Button>
+          <Button onClick={onSubmit}>Add Device</Button>
         </div>
       </div>
     </DashboardLayout>

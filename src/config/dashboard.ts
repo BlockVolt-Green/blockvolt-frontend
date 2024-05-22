@@ -11,6 +11,11 @@ export const monitorConfig: DashboardConfig = {
   ],
   sidebarNav: [
     {
+      title: "Dashboard",
+      href: "/",
+      icon: "home",
+    },
+    {
       title: "Devices",
       href: "/devices",
       icon: "home",

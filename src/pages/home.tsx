@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { DeviceInfo } from "@/interface";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "@/components/layouts/main-layout";
+import DashboardLayout from "@/components/layouts/dashboard-layout";
 
 export default function Home() {
   const [devices, setDevices] = useState<DeviceInfo[]>([]);
@@ -30,19 +31,15 @@ export default function Home() {
   }, []);
 
   return (
-    <MainLayout>
+    <DashboardLayout loading={false}>
       <div className="container">
-        <h1>Home</h1>
-
-        <div className="flex justify-around p-10">
-          {devices.map((item) => {
+        <div className="flex flex-wrap gap-4 justify-center p-10">
+          {[...devices, ...devices, ...devices, ...devices].map((item) => {
             return (
               <Card
-                className="w-[25%]"
+                className="w-[300px] cursor-pointer"
                 onClick={() =>
-                  navigate("/device-detail", {
-                    state: { address: item.address },
-                  })
+                  navigate(`/device-detail?address=${item.address}`)
                 }
               >
                 <CardHeader>
@@ -60,13 +57,12 @@ export default function Home() {
                   <p className="text-sm text-left">
                     <strong>User ID: </strong> {item.userId}
                   </p>
-                  s
                 </CardContent>
               </Card>
             );
           })}
         </div>
       </div>
-    </MainLayout>
+    </DashboardLayout>
   );
 }
