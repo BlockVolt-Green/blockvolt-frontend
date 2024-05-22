@@ -27,7 +27,7 @@ const MainLayout: React.FC<{
     }
   }
 
-  function logout() {
+  function handleLogout() {
     localStorage.removeItem("token");
     setIsLoggedin(false);
     navigate("/login")
@@ -62,7 +62,7 @@ const MainLayout: React.FC<{
               </Button>
             </Link> */}
 
-            <Button onClick={()=> localStorage.removeItem("token")} className="max-w-32">
+            <Button onClick={handleLogout} className="max-w-32">
               Logout
             </Button>
           </nav>
