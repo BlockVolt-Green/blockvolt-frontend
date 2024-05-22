@@ -3,26 +3,33 @@ import DashboardLayout from "@/components/layouts/dashboard-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AddDevicesPage() {
   const machineIdRef = useRef<HTMLInputElement>();
   const addressRef = useRef<HTMLInputElement>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const onSubmit = async () => {
-    const device = await addDevice(
-      machineIdRef.current.value,
-      addressRef.current.value
-    );
+    try {
+      const device = await addDevice(
+        machineIdRef.current.value,
+        addressRef.current.value
+      );
 
-    if (device === null) {
-      alert("Cannot add device");
-      return;
-    } else {
-      navigate("/devices");
+      if (device === null) {
+        alert("Cannot add device");
+        return;
+      } else {
+        navigate("/devices");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,7 +71,9 @@ export default function AddDevicesPage() {
         </div>
 
         <div>
-          <Button onClick={onSubmit}>Add Device</Button>
+          <Button onClick={onSubmit} disabled={isLoading}>
+            Add Device
+          </Button>
         </div>
       </div>
     </DashboardLayout>
