@@ -5,8 +5,13 @@ export const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const [userData, setUserData] = useAtom(userDataAtom);
 
-  const login = (userData: User) => {
+  const login = ({ token }: { token: string }) => {
     // setUserData(userData);
+    // setUserData({
+    //   token,
+    //   firstName: "",
+    //   lastName: "",
+    // });
     setIsLoggedIn(true);
   };
 

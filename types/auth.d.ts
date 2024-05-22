@@ -1,6 +1,7 @@
 type User = {
   firstName: string;
   lastName: string;
+  token: string;
 };
 
 type SiteConfig = {

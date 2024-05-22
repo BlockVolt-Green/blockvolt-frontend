@@ -8,20 +8,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
-import { login } from "@/apis";
+import { login as userLogin } from "@/apis";
 import { useAtom } from "jotai";
 import { isLoggedInAtom } from "@/atoms/auth";
+import { useAuth } from "@/hooks/auth-hook";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const { login } = useAuth();
 
   const emailRef = React.useRef<HTMLInputElement>();
   const passwordRef = React.useRef<HTMLInputElement>();
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
-  const [_, setIsLoggedin] = useAtom(isLoggedInAtom);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [, setIsLoggedin] = useAtom(isLoggedInAtom);
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -32,17 +34,19 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     }, 3000);
   }
 
-  const submit = async ()=> {
-    let token = await login(emailRef?.current?.value, passwordRef?.current?.value);
+  const submit = async () => {
+    const token = await userLogin(
+      emailRef?.current?.value,
+      passwordRef?.current?.value
+    );
 
-    if(token !== null) {
-      setIsLoggedin(true);
-      navigate("/")
+    if (token !== null) {
+      login({ token });
+      navigate("/");
+    } else {
+      alert("Wrong Credential");
     }
-    else {
-      alert("Wrong Credential")
-    }
-  }
+  };
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -82,10 +86,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             />
           </div>
 
-          <Button
-            disabled={isLoading}
-            onClick={submit}
-          >
+          <Button disabled={isLoading} onClick={submit}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
