@@ -34,7 +34,7 @@ export default function Home() {
     <DashboardLayout loading={false}>
       <div className="container">
         <div className="flex flex-wrap gap-4 justify-center p-10">
-          {[...devices, ...devices, ...devices, ...devices].map((item) => {
+          {devices.map((item) => {
             return (
               <Card
                 className="w-[300px] cursor-pointer"

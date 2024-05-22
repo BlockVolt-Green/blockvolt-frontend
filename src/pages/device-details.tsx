@@ -17,6 +17,7 @@ import DashboardLayout from "@/components/layouts/dashboard-layout";
 export default function DeviceDetail() {
   const [searchParams] = useSearchParams();
   const address = searchParams.get("address");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState<DeviceDetailInterface | null>(null);
   const { toast } = useToast();
@@ -39,10 +40,18 @@ export default function DeviceDetail() {
 
   useEffect(() => {
     async function getData() {
-      const apiData = await getDeviceDetail(address);
+      try {
+        setIsLoading(true);
 
-      if (apiData !== null) {
-        setData(apiData);
+        const apiData = await getDeviceDetail(address);
+
+        if (apiData !== null) {
+          setData(apiData);
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -54,7 +63,7 @@ export default function DeviceDetail() {
   }, [address]);
 
   return (
-    <DashboardLayout loading={false}>
+    <DashboardLayout loading={isLoading}>
       <Card className="w-[95%]">
         <CardHeader>
           <CardTitle>Device {data?.id}</CardTitle>

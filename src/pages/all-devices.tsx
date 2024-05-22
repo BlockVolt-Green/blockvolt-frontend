@@ -13,19 +13,27 @@ import {
 } from "@/components/ui/table";
 import { DeviceInfo } from "@/interface";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AllDevicesPage() {
   const [devices, setDevices] = useState<DeviceInfo[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchDevices = async () => {
-    const devices = await getDevices();
+    try {
+      setIsLoading(true);
+      const devices = await getDevices();
 
-    if (devices) {
-      setDevices(devices);
-    } else {
-      console.log("devices are null");
+      if (devices) {
+        setDevices(devices);
+      } else {
+        console.log("devices are null");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -34,7 +42,7 @@ export default function AllDevicesPage() {
   }, []);
 
   return (
-    <DashboardLayout loading={false}>
+    <DashboardLayout loading={isLoading}>
       <h1 className="text-3xl font-bold">All Devices</h1>
 
       <div>
