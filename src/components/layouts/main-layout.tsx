@@ -9,19 +9,32 @@ import { Button } from "@/components/ui/button";
 import { useAtom } from "jotai";
 import { isLoggedInAtom } from "@/atoms/auth";
 import { useNavigate } from "react-router-dom";
-
+import { ethers } from "ethers";
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [color, setcolor] = useState(false);
+  const [walletAddress, setWalletAddress] = useState("");
 
   const [_, setIsLoggedin] = useAtom(isLoggedInAtom);
   const navigate = useNavigate();
 
-  async function handleConnect() {
+  async function handleWalletConnect() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!(window as any).ethereum) {
+      return;
+    }
+
     try {
-      // TODO: Hanlde wallet connection
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const provider = new ethers.providers.Web3Provider(
+        (window as any).ethereum
+      );
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+      setWalletAddress(address);
     } catch (e) {
       console.error("failed to connect", e);
     }
@@ -30,7 +43,7 @@ const MainLayout: React.FC<{
   function handleLogout() {
     localStorage.removeItem("token");
     setIsLoggedin(false);
-    navigate("/login")
+    navigate("/login");
   }
 
   const changeNavBg = () => {
@@ -55,7 +68,7 @@ const MainLayout: React.FC<{
         <div className="m-auto flex h-20 items-center justify-between p-5 py-6">
           <MainNav items={marketingConfig.mainNav} />
 
-          <nav>
+          <nav className="flex flex-row gap-2">
             {/* <Link to="/pay">
               <Button variant="secondary" className="mr-4">
                 Pay
@@ -64,6 +77,15 @@ const MainLayout: React.FC<{
 
             <Button onClick={handleLogout} className="max-w-32">
               Logout
+            </Button>
+
+            <Button
+              onClick={handleWalletConnect}
+              className="max-w-32 overflow-x-clip text-ellipsis"
+            >
+              {walletAddress
+                ? walletAddress.slice(0, 10) + "..."
+                : "Connect Wallet"}
             </Button>
           </nav>
         </div>

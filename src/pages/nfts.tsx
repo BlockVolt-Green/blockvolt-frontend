@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/layouts/dashboard-layout";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { useState } from "react";
 
 export default function NFTPage() {

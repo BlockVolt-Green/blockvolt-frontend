@@ -23,11 +23,11 @@ function App() {
   };
 
   useEffect(() => {
-    // if (isLoggedIn) {
-    //   navigate("/")
-    // } else {
-    //   navigate("/login")
-    // }
+    if (isLoggedIn) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
