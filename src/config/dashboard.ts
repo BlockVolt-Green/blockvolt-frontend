@@ -31,5 +31,11 @@ export const monitorConfig: DashboardConfig = {
       href: "/add-device",
       icon: "users",
     },
+
+    {
+      title: "NFTs",
+      href: "/nfts",
+      icon: "users",
+    },
   ],
 };

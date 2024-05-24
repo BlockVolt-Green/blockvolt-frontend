@@ -10,35 +10,29 @@ import { useEffect } from "react";
 import { checkLogin } from "./apis";
 import { useAtom } from "jotai";
 import { isLoggedInAtom } from "./atoms/auth";
+import NFTPage from "./pages/nfts";
 
 function App() {
-
-  let [isLoggedIn,setIsLoggedIn] = useAtom(isLoggedInAtom);
+  let [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   let navigate = useNavigate();
 
   const checkLoginCallback = async () => {
-
     let isLoggedin = await checkLogin();
-    console.log(isLoggedIn)
+    console.log(isLoggedIn);
     setIsLoggedIn(isLoggedin);
+  };
 
-  }
+  useEffect(() => {
+    // if (isLoggedIn) {
+    //   navigate("/")
+    // } else {
+    //   navigate("/login")
+    // }
+  }, [isLoggedIn]);
 
-  useEffect(()=> {
-
-    if (isLoggedIn) {
-      navigate("/")
-    } else {
-      navigate("/login")
-    }
-
-  },[isLoggedIn])
-
-  useEffect(()=> {
-
+  useEffect(() => {
     checkLoginCallback();
-
-  },[])
+  }, []);
 
   return (
     <div className="App">
@@ -48,6 +42,7 @@ function App() {
         <Route path="/devices" element={<AllDevicesPage />} />
         <Route path="/device-detail" element={<DeviceDetail />} />
         <Route path="/add-device" element={<AddDevicesPage />} />
+        <Route path="/nfts" element={<NFTPage />} />
       </Routes>
       <Toaster />
     </div>
