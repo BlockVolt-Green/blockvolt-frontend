@@ -95,10 +95,7 @@ export default function DeviceDetail() {
                   <strong>Device Id: </strong> {item?.deviceId}
                 </p>
                 <p className="text-sm ">
-                  <strong>Time: </strong> {item?.time}
-                </p>
-                <p className="text-sm ">
-                  <strong>Temprature: </strong> {item?.temprature}
+                  <strong>Time: </strong> {(new Date(item?.time.toString())).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})}
                 </p>
                 <p className="text-sm ">
                   <strong>Total Energy: </strong> {item?.totalEnergy}

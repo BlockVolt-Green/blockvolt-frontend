@@ -16,8 +16,8 @@ export default function AddDevicesPage() {
   const onSubmit = async () => {
     try {
       const device = await addDevice(
-        machineIdRef.current.value,
-        addressRef.current.value
+        addressRef.current.value,
+        machineIdRef.current.value
       );
 
       if (device === null) {
