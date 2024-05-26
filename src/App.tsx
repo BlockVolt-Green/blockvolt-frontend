@@ -41,7 +41,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/devices" element={<AllDevicesPage />} />
         <Route path="/device-detail" element={<DeviceDetail />} />
-        <Route path="/add-device" element={<AddDevicesPage />} />
+        {/* <Route path="/add-device" element={<AddDevicesPage />} /> */}
         <Route path="/nfts" element={<NFTPage />} />
       </Routes>
       <Toaster />

@@ -26,11 +26,11 @@ export const monitorConfig: DashboardConfig = {
       icon: "users",
       disabled: true,
     },
-    {
-      title: "Add Devide",
-      href: "/add-device",
-      icon: "users",
-    },
+    // {
+    //   title: "Add Devide",
+    //   href: "/add-device",
+    //   icon: "users",
+    // },
 
     {
       title: "NFTs",

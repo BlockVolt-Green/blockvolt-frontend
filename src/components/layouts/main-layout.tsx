@@ -28,11 +28,11 @@ const MainLayout: React.FC<{
 
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const provider = new ethers.providers.Web3Provider(
+      const provider = new ethers.BrowserProvider(
         (window as any).ethereum
       );
       await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
+      const signer = await provider.getSigner();
       const address = await signer.getAddress();
       setWalletAddress(address);
     } catch (e) {
