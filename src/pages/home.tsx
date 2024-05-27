@@ -1,67 +1,60 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { getDevices } from "@/apis";
-import { useEffect, useState } from "react";
-import { DeviceInfo } from "@/interface";
-import { useNavigate } from "react-router-dom";
-import DashboardLayout from "@/components/layouts/dashboard-layout";
+import { Icons } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
 
-export default function Home() {
-  const [devices, setDevices] = useState<DeviceInfo[]>([]);
-  const navigate = useNavigate();
-
-  const fetchDevices = async () => {
-    const devices = await getDevices();
-
-    if (devices) {
-      setDevices(devices);
-    } else {
-      console.log("devices are null");
-    }
-  };
-
-  useEffect(() => {
-    fetchDevices();
-  }, []);
-
+export default function HomePage() {
   return (
-    <DashboardLayout loading={false}>
-      <div className="container">
-        <div className="flex flex-wrap gap-4 justify-center p-10">
-          {devices?.map((item) => {
-            return (
-              <Card
-                className="w-[400px] cursor-pointer"
-                onClick={() =>
-                  navigate(`/device-detail?address=${item.address}`)
-                }
-              >
-                <CardHeader>
-                  <CardTitle>Device {item.id}</CardTitle>
-                  <CardDescription></CardDescription>
-                </CardHeader>
+    <div className="h-screen w-screen flex flex-col items-center justify-center">
+      <section
+        id="hero"
+        className="relative flex flex-col text-center flex-auto justify-center items-center gap-16 h-screen w-screen"
+      >
+        <div className="overlay absolute z-10 top-0 bottom-0 left-0 right-0 h-full w-full bg-black"></div>
 
-                <CardContent className="text-md">
-                  <p className="">
-                    <strong>Address: </strong> {item.address}
-                  </p>
-                  <p className="">
-                    <strong>Machine Id: </strong> {item.machineId}
-                  </p>
-                  <p className="">
-                    <strong>User ID: </strong> {item.userId}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+        <div className="flex flex-row gap-4">
+          <SocialLink href="#">
+            <Icons.fileIcon className="h-4 w-4" fill="white" color="white" />
+            Carbon Tokens
+          </SocialLink>
+
+          <SocialLink href="#">
+            <Icons.gitHub className="h-4 w-4" />
+            Carbon Credits
+          </SocialLink>
         </div>
-      </div>
-    </DashboardLayout>
+
+        <h1 className="text-6xl capitalize z-20">
+          Carbon Emission Tokenization
+          <br />
+          <span className="bg-gradient-to-r from-blue-400 to-red-400 bg-clip-text text-transparent">
+            Blockvolt
+          </span>
+        </h1>
+
+        <p className="text-gray-400 text-2xl capitalize z-20">
+          An platform to track people's carbon emission with power and security
+          of blockchain.
+        </p>
+
+        <a href="/login" className="z-10">
+          <Button>
+            Continue <Icons.arrowRight className="h-4 w-4" />
+          </Button>
+        </a>
+      </section>
+    </div>
+  );
+}
+
+function SocialLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a
+      className="rounded-2xl bg-black hover:bg-white/20 text-white border border-[#4C4C4C] px-4 py-1.5 text-sm font-medium z-20 flex flex-row gap-2 items-center"
+      href={href}
+      target="_blank"
+      rel="noreferer"
+    >
+      {children}
+    </a>
   );
 }

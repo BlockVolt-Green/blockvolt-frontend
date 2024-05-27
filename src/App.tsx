@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./pages/home";
+import DashboardPage from "./pages/dashboard";
 import Login from "./pages/login";
 
 import DeviceDetail from "./pages/device-details";
@@ -11,6 +11,7 @@ import { checkLogin } from "./apis";
 import { useAtom } from "jotai";
 import { isLoggedInAtom } from "./atoms/auth";
 import NFTPage from "./pages/nfts";
+import HomePage from "./pages/home";
 
 function App() {
   let [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
@@ -24,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/");
+      navigate("/dashboard");
     } else {
       navigate("/login");
     }
@@ -37,7 +38,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/devices" element={<AllDevicesPage />} />
         <Route path="/device-detail" element={<DeviceDetail />} />

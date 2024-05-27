@@ -6,7 +6,7 @@ export const marketingConfig: MarketingConfig = {
     },
     {
       title: "Dashboard",
-      href: "/devices",
+      href: "/dashboard",
     },
   ],
 };
