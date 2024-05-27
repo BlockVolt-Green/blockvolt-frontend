@@ -2,7 +2,7 @@ const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 import { DeviceDetailInterface, DeviceInfo } from "./interface";
 
-export const getDevices = async (): Promise<DeviceInfo[] | null> => {
+export const getDevices = async (): Promise<Device[] | null> => {
   try {
     const resp = await fetch(BASE_URL + "/device/all/", {
       method: "GET",
@@ -12,7 +12,8 @@ export const getDevices = async (): Promise<DeviceInfo[] | null> => {
       },
     });
 
-    const json: DeviceInfo[] = await resp.json();
+    const json: Device[] = await resp.json();
+
     return json;
   } catch (e: any) {
     console.log(e);
@@ -71,10 +72,10 @@ export const deleteDevice = async (deviceId: string) => {
 };
 
 export const getDeviceDetail = async (
-  address: String
-): Promise<DeviceDetailInterface | null> => {
+  address: string
+): Promise<Device | null> => {
   try {
-    let resp = await fetch(BASE_URL + "/device/?address=" + address, {
+    const resp = await fetch(BASE_URL + "/device/?address=" + address, {
       method: "GET",
       headers: {
         content: "application/json",
@@ -82,8 +83,8 @@ export const getDeviceDetail = async (
       },
     });
 
-    let json: DeviceDetailInterface = await resp.json();
-    console.log(json, "====");
+    const json: Device = await resp.json();
+
     return json;
   } catch (e: any) {
     console.log(e);

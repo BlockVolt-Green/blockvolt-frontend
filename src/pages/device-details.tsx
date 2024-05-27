@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DeviceDetailInterface } from "@/interface";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,7 @@ export default function DeviceDetail() {
   const address = searchParams.get("address");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [data, setData] = useState<DeviceDetailInterface | null>(null);
+  const [data, setData] = useState<Device | null>(null);
   const { toast } = useToast();
 
   const verify = async (data: string) => {
@@ -95,7 +94,10 @@ export default function DeviceDetail() {
                   <strong>Device Id: </strong> {item?.deviceId}
                 </p>
                 <p className="text-sm ">
-                  <strong>Time: </strong> {(new Date(item?.time.toString())).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})}
+                  <strong>Time: </strong>{" "}
+                  {new Date(item?.time.toString()).toLocaleString(undefined, {
+                    timeZone: "Asia/Kolkata",
+                  })}
                 </p>
                 <p className="text-sm ">
                   <strong>Total Energy: </strong> {item?.totalEnergy}

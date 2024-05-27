@@ -11,12 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DeviceInfo } from "@/interface";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AllDevicesPage() {
-  const [devices, setDevices] = useState<DeviceInfo[]>([]);
+  const [devices, setDevices] = useState<Device[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -87,8 +86,6 @@ export default function AllDevicesPage() {
                     <Icons.trash className="h-4 w-4" />
                   </Button>
                 </TableCell>
-
-
               </TableRow>
             ))}
           </TableBody>
