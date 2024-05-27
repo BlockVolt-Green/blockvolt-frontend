@@ -10,12 +10,21 @@ import { useAtom } from "jotai";
 import { isLoggedInAtom } from "@/atoms/auth";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
+import { web3WalletAtom,contractAtom } from "@/atoms/web3";
+
+import abi from "../../../abi.json";
+
+const CONTRACT_ADDRESS: string = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [color, setcolor] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
+
+  let [wallet, setWallet] = useAtom(web3WalletAtom);
+  let [contract, setContract] = useAtom(contractAtom);
+
 
   const [_, setIsLoggedin] = useAtom(isLoggedInAtom);
   const navigate = useNavigate();
@@ -31,6 +40,12 @@ const MainLayout: React.FC<{
       const provider = new ethers.BrowserProvider(
         (window as any).ethereum
       );
+
+      const nftContract = new ethers.Contract(CONTRACT_ADDRESS,abi, provider)
+
+      setWallet(provider);
+      setContract(nftContract);
+      
       await provider.send("eth_requestAccounts", []);
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
@@ -50,8 +65,14 @@ const MainLayout: React.FC<{
     window.scrollY >= 90 ? setcolor(true) : setcolor(false);
   };
 
+  const getWalletAddress = async () => {
+    setWalletAddress((await wallet.getSigner()).address);
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", changeNavBg);
+
+    getWalletAddress();
 
     return () => {
       window.removeEventListener("scroll", changeNavBg);
