@@ -17,4 +17,5 @@ type Device = {
   city: string;
   category: string;
   manufacturer: string;
+  data: any;
 };

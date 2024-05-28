@@ -9,8 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { login as userLogin } from "@/apis";
-import { useAtom } from "jotai";
-import { isLoggedInAtom } from "@/atoms/auth";
 import { useAuth } from "@/hooks/auth-hook";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -23,7 +21,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [, setIsLoggedin] = useAtom(isLoggedInAtom);
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();

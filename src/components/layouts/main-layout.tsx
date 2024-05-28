@@ -23,7 +23,7 @@ const MainLayout: React.FC<{
   const [walletAddress, setWalletAddress] = useState("");
 
   let [wallet, setWallet] = useAtom(web3WalletAtom);
-  let [contract, setContract] = useAtom(contractAtom);
+  let [, setContract] = useAtom(contractAtom);
 
 
   const [_, setIsLoggedin] = useAtom(isLoggedInAtom);
@@ -66,7 +66,9 @@ const MainLayout: React.FC<{
   };
 
   const getWalletAddress = async () => {
-    setWalletAddress((await wallet.getSigner()).address);
+    if (typeof wallet !== 'number') {
+      setWalletAddress((await wallet.getSigner()).address);
+    }
   }
 
   useEffect(() => {

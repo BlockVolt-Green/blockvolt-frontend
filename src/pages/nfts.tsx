@@ -5,14 +5,19 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 export default function NFTPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, ] = useState(false);
   const [nfts, setNfts] = useState<any[]>([]);
 
-  const [contract,setContrat] = useAtom(contractAtom);
-  const [wallet, setWallet] = useAtom(web3WalletAtom);
+  const [contract,] = useAtom(contractAtom);
+  const [wallet, ] = useAtom(web3WalletAtom);
 
 
   async function getNftInfo(tokenid: number) {
+
+    if (typeof wallet === 'number' || typeof contract === 'number') {
+      return;
+    }
+
     const tokenId = parseInt(await contract.tokenOfOwnerByIndex((await wallet.getSigner()).address, tokenid));
     const tokenUrl: string = await contract.tokenURI(tokenId);
     const tokenMetadata = await fetch("https://ipfs.io/ipfs/"+tokenUrl.slice(7,tokenUrl.length), {method: "GET"});
@@ -25,6 +30,9 @@ export default function NFTPage() {
   async function getNFTSOfOwner() {
     try {
 
+      if (typeof wallet === 'number' || typeof contract === 'number') {
+        return;
+      }
 
       const totalSupply = parseInt(await contract.totalSupply());
       const promises = [];

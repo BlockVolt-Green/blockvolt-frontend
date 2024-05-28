@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-import { DeviceDetailInterface, DeviceInfo } from "./interface";
+import { DeviceInfo } from "./interface";
 
 export const getDevices = async (): Promise<Device[] | null> => {
   try {
