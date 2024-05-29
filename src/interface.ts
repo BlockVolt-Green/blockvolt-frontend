@@ -8,17 +8,17 @@ export interface DeviceInfo {
 export interface NotarizedData {
     id: number,
     deviceId: number,
-    time: String,
-    temprature: String,
-    totalEnergy: String,
-    today: String,
+    time: string,
+    temprature: string,
+    totalEnergy: string,
+    today: string,
     power: number,
     apparentPower: number,
     reactivePower: number,
-    factor: String,
+    factor: string,
     voltage: number,
-    current: String,
-    raw: String
+    current: string,
+    raw: string
 }
 
 

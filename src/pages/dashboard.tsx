@@ -7,12 +7,11 @@ import {
 } from "@/components/ui/card";
 import { getDevices } from "@/apis";
 import { useEffect, useState } from "react";
-import { DeviceInfo } from "@/interface";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
 
 export default function DashboardPage() {
-  const [devices, setDevices] = useState<DeviceInfo[]>([]);
+  const [devices, setDevices] = useState<Device[]>([]);
   const navigate = useNavigate();
 
   const fetchDevices = async () => {
@@ -32,7 +31,7 @@ export default function DashboardPage() {
   return (
     <DashboardLayout loading={false}>
       <div className="container">
-        <div className="flex flex-wrap gap-4 justify-center p-10">
+        <div className="flex flex-wrap gap-4 p-10">
           {devices?.map((item) => {
             return (
               <Card
@@ -42,7 +41,7 @@ export default function DashboardPage() {
                 }
               >
                 <CardHeader>
-                  <CardTitle>Device {item.id}</CardTitle>
+                  <CardTitle>{item.category.toUpperCase()} - {item.manufacturer.toUpperCase()}</CardTitle>
                   <CardDescription></CardDescription>
                 </CardHeader>
 
@@ -52,6 +51,9 @@ export default function DashboardPage() {
                   </p>
                   <p className="">
                     <strong>Machine Id: </strong> {item.machineId.slice(0,20)}...
+                  </p>
+                  <p className="">
+                    <strong>Location: </strong> {item.city.toUpperCase()}, {item.region.toUpperCase()} - {item.country}
                   </p>
                   <p className="">
                     <strong>User ID: </strong> {item.userId}

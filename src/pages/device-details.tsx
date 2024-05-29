@@ -3,15 +3,27 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
+import { Icons } from "@/components/icons";
+import { NotarizedData } from "@/interface";
 
 export default function DeviceDetail() {
   const [searchParams] = useSearchParams();
@@ -36,36 +48,39 @@ export default function DeviceDetail() {
       });
     }
   };
+  
+  async function getData() {
+    try {
+      setIsLoading(true);
+
+      const apiData = await getDeviceDetail(address);
+
+      if (apiData !== null) {
+        setData(apiData);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    async function getData() {
-      try {
-        setIsLoading(true);
-
-        const apiData = await getDeviceDetail(address);
-
-        if (apiData !== null) {
-          setData(apiData);
-        }
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setIsLoading(false);
-      }
-    }
 
     getData();
-
-    if (address) {
-      verifyData(address, "dasd");
-    }
+    
   }, [address]);
 
+  if (data === null) {
+    return 
+  }
+
   return (
+
     <DashboardLayout loading={isLoading}>
       <Card className="w-[95%]">
         <CardHeader>
-          <CardTitle>Device {data?.id}</CardTitle>
+          <CardTitle>Device {data.category.toUpperCase()} - {data.manufacturer.toUpperCase()}</CardTitle>
           <CardDescription></CardDescription>
         </CardHeader>
         <CardContent>
@@ -76,54 +91,58 @@ export default function DeviceDetail() {
             <strong>Machine Id: </strong> {data?.machineId}
           </p>
           <p className="text-sm ">
+            <strong>Location: </strong> {data?.city.toUpperCase()}, {data?.region.toUpperCase()} - {data?.country}
+          </p>
+          <p className="text-sm ">
             <strong>User ID: </strong> {data?.userId}
           </p>
         </CardContent>
       </Card>
 
-      <div className="w-full flex flex-col items-center mt-10">
-        {data?.data.map((item) => {
-          return (
-            <Card className="w-[25%] my-3">
-              <CardHeader></CardHeader>
-              <CardContent>
-                <p className="text-sm ">
-                  <strong>Id: </strong> {item?.id}
-                </p>
-                <p className="text-sm ">
-                  <strong>Device Id: </strong> {item?.deviceId}
-                </p>
-                <p className="text-sm ">
-                  <strong>Time: </strong>{" "}
+      <Table>
+          <TableCaption>A list of all Notarized data device {data?.category.toUpperCase()} - {data?.manufacturer.toUpperCase()}</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Data ID</TableHead>
+              <TableHead>Time</TableHead>
+              <TableHead>Total Energy</TableHead>
+              <TableHead>Today</TableHead>
+              <TableHead>Power Factor</TableHead>
+              <TableHead>Voltage</TableHead>
+              <TableHead>Current</TableHead>
+              <TableHead>Info</TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {data?.data.map((item: NotarizedData) => (
+              <TableRow key={item?.id}>
+                <TableCell className="font-medium">{item?.id}</TableCell>
+                <TableCell>
                   {new Date(item?.time.toString()).toLocaleString(undefined, {
                     timeZone: "Asia/Kolkata",
                   })}
-                </p>
-                <p className="text-sm ">
-                  <strong>Total Energy: </strong> {item?.totalEnergy}
-                </p>
-                <p className="text-sm ">
-                  <strong>Today: </strong> {item?.today}
-                </p>
-                <p className="text-sm ">
-                  <strong>Power: </strong> {item?.power}
-                </p>
-                <p className="text-sm ">
-                  <strong>Voltage: </strong> {item?.voltage}
-                </p>
-                <p className="text-sm ">
-                  <strong>Current: </strong> {item?.current}
-                </p>
-              </CardContent>
-              <CardFooter className="flex w-full justify-center items-center">
-                <Button onClick={() => verify(item.raw.toString())}>
-                  Verify
-                </Button>
-              </CardFooter>
-            </Card>
-          );
-        })}
-      </div>
+                </TableCell>
+                <TableCell>{parseFloat(item?.totalEnergy).toFixed(3)} kWh</TableCell>
+                <TableCell>{parseFloat(item?.today).toFixed(3)} kWh</TableCell>
+                <TableCell>{item?.power} W</TableCell>
+                <TableCell>{item?.voltage} V</TableCell>
+                <TableCell>{item?.current} A</TableCell>
+
+                <TableCell>
+                  <Button
+                     onClick={() => verify(item.raw.toString())}
+                    className="rounded-lg mr-2"
+                  >
+                    <Icons.check className="h-4 w-4" />
+                  </Button>
+                </TableCell>
+
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+
     </DashboardLayout>
   );
 }

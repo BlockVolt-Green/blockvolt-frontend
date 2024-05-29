@@ -13,7 +13,7 @@ export const getDevices = async (): Promise<Device[] | null> => {
     });
 
     const json: Device[] = await resp.json();
-
+    console.log(json)
     return json;
   } catch (e: any) {
     console.log(e);
