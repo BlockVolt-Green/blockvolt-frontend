@@ -23,7 +23,7 @@ export function MainNav({ items, children }: MainNavProps) {
           "hidden items-center space-x-2 hover:text-foreground/80 md:flex"
         )}
       >
-        <Icons.logo />
+        <img src="/images/logo.png" className="w-8 h-8"/>
 
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
@@ -54,7 +54,7 @@ export function MainNav({ items, children }: MainNavProps) {
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? <Icons.close /> : <Icons.logo />}
+        {showMobileMenu ? <Icons.close /> : <img src="/images/logo.png" className="w-8 h-8"/>}
 
         <span className="font-bold">Menu</span>
       </button>

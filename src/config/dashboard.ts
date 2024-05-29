@@ -20,17 +20,17 @@ export const monitorConfig: DashboardConfig = {
       href: "/devices",
       icon: "home",
     },
-    {
-      title: "Device Detalis",
-      href: "/device-detail",
-      icon: "users",
-      disabled: true,
-    },
-    {
-      title: "Add Devide",
-      href: "/add-device",
-      icon: "users",
-    },
+    // {
+    //   title: "Device Detalis",
+    //   href: "/device-detail",
+    //   icon: "users",
+    //   disabled: true,
+    // },
+    // {
+    //   title: "Add Devide",
+    //   href: "/add-device",
+    //   icon: "users",
+    // },
     {
       title: "NFTs",
       href: "/nfts",

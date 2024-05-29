@@ -48,10 +48,10 @@ export default function DashboardPage() {
 
                 <CardContent className="text-md">
                   <p className="">
-                    <strong>Address: </strong> {item.address}
+                    <strong>Address: </strong> {item.address.slice(0,20)}...
                   </p>
                   <p className="">
-                    <strong>Machine Id: </strong> {item.machineId}
+                    <strong>Machine Id: </strong> {item.machineId.slice(0,20)}...
                   </p>
                   <p className="">
                     <strong>User ID: </strong> {item.userId}

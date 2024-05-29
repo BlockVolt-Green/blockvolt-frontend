@@ -3,7 +3,6 @@ import * as React from "react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { useLockBody } from "@/hooks/use-lock-body";
-import { Icons } from "@/components/icons";
 import { Link } from "react-router-dom";
 
 interface MobileNavProps {
@@ -22,7 +21,7 @@ export function MobileNav({ items, children }: MobileNavProps) {
     >
       <div className="relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md">
         <Link to="/" className="flex items-center space-x-2">
-          <Icons.logo />
+          <img src="/images/logo.png" className="w-8 h-8"/>
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
 

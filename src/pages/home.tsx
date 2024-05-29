@@ -1,8 +1,26 @@
+import { isLoggedInAtom } from "@/atoms/auth";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { useAtom } from "jotai";
 import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+
+  const navigate = useNavigate();
+  const [isLoggedin,] = useAtom(isLoggedInAtom);
+
+  const handleSubmit = () => {
+
+    if (isLoggedin) {
+      navigate("/dashboard");
+    } 
+    else {
+      navigate("/login");
+    }
+
+  }
+
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center">
       <section
@@ -35,12 +53,9 @@ export default function HomePage() {
           An platform to track people's carbon emission with power and security
           of blockchain.
         </p>
-
-        <a href="/login" className="z-10">
-          <Button>
-            Continue <Icons.arrowRight className="h-4 w-4" />
-          </Button>
-        </a>
+        <Button onClick={handleSubmit} className="z-10">
+          Continue <Icons.arrowRight className="h-4 w-4" />
+        </Button>
       </section>
     </div>
   );
