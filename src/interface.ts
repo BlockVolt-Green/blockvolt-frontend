@@ -29,3 +29,19 @@ export interface DeviceDetailInterface {
     userId: number
     data: NotarizedData[]
 }
+
+export interface NFT {
+    tokenid: number,
+    image: string,
+    external_url: string,
+    description: string,
+    attributes: {
+        cid: string,
+        energy: number,
+        location: string,
+        machine_address: string,
+        machine_cid: string,
+        provider: string,
+        timestamp: string
+    }
+}

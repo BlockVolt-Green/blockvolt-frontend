@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import DashboardPage from "./pages/dashboard";
 import Login from "./pages/login";
 
@@ -12,10 +12,10 @@ import { useAtom } from "jotai";
 import { isLoggedInAtom } from "./atoms/auth";
 import NFTPage from "./pages/nfts";
 import HomePage from "./pages/home";
+import RegisterPage from "./pages/register";
 
 function App() {
   let [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
-  let navigate = useNavigate();
 
   const checkLoginCallback = async () => {
     let isLoggedin = await checkLogin();
@@ -23,32 +23,48 @@ function App() {
     setIsLoggedIn(isLoggedin);
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/");
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, [isLoggedIn]);
 
   useEffect(() => {
     checkLoginCallback();
   }, []);
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/devices" element={<AllDevicesPage />} />
-        <Route path="/device-detail" element={<DeviceDetail />} />
-        <Route path="/add-device" element={<AddDevicesPage />} />
-        <Route path="/nfts" element={<NFTPage />} />
-      </Routes>
-      <Toaster />
-    </div>
-  );
+  if (isLoggedIn) {
+
+    return (
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/devices" element={<AllDevicesPage />} />
+          <Route path="/device-detail" element={<DeviceDetail />} />
+          <Route path="/add-device" element={<AddDevicesPage />} />
+          <Route path="/nfts" element={<NFTPage />} />
+        </Routes>
+        <Toaster />
+      </div>
+    );
+  }
+
+  else {
+    return (
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+        <Toaster />
+      </div>
+    );
+  }
+
 }
 
 export default App;

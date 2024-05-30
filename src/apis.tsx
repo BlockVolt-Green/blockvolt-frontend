@@ -149,9 +149,58 @@ export const login = async (
   }
 };
 
+export const register = async (
+  name: string,
+  publicKey: string,
+  email: string,
+  password: string
+): Promise<number> => {
+  try {
+    let resp = await fetch(BASE_URL + "/auth/register", {
+      method: "POST",
+      headers: {
+        content: "application/json",
+      },
+      body: new URLSearchParams({
+        name: name,
+        publicKey: publicKey,
+        email: email,
+        password: password,
+      }),
+    });
+    
+    return resp.status
+  } catch (e: any) {
+    console.log(e);
+    return 500;
+  }
+};
+
 export const checkLogin = async (): Promise<boolean> => {
   try {
     let resp = await fetch(BASE_URL + "/auth/me", {
+      method: "GET",
+      headers: {
+        content: "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+
+    if (resp.status === 200) {
+      return true;
+    }
+
+    return false;
+  } catch (e: any) {
+    console.log(e);
+    return null;
+  }
+};
+
+
+export const verifyCID = async (cid: string): Promise<boolean> => {
+  try {
+    let resp = await fetch(BASE_URL + "/notarize/verify-cid?cid=" + cid, {
       method: "GET",
       headers: {
         content: "application/json",

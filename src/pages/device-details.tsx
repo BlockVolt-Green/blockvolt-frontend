@@ -24,6 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
 import { Icons } from "@/components/icons";
 import { NotarizedData } from "@/interface";
+import { getSecondsDifference } from "@/utils";
 
 export default function DeviceDetail() {
   const [searchParams] = useSearchParams();
@@ -33,7 +34,18 @@ export default function DeviceDetail() {
   const [data, setData] = useState<Device | null>(null);
   const { toast } = useToast();
 
-  const verify = async (data: string) => {
+  const verify = async (timestamp: string, data: string) => {
+
+    let timediff = getSecondsDifference(timestamp);
+    console.log(timediff)
+    if (timediff < 20) {
+      toast({
+        title: "Data Notarizing",
+        description: "wait for few seconds",
+      });
+      return;
+    }
+
     const res = await verifyData(address, data);
 
     if (res === false) {
@@ -64,6 +76,7 @@ export default function DeviceDetail() {
       setIsLoading(false);
     }
   }
+
 
   useEffect(() => {
 
@@ -131,7 +144,7 @@ export default function DeviceDetail() {
 
                 <TableCell>
                   <Button
-                     onClick={() => verify(item.raw.toString())}
+                     onClick={() => verify(item.time.toString(),item.raw.toString())}
                     className="rounded-lg mr-2"
                   >
                     <Icons.check className="h-4 w-4" />

@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 export default function AllDevicesPage() {
   const [devices, setDevices] = useState<Device[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [stateChange, setStateChange] = useState(0);
+
   const navigate = useNavigate();
 
   const fetchDevices = async () => {
@@ -38,7 +40,7 @@ export default function AllDevicesPage() {
 
   useEffect(() => {
     fetchDevices();
-  }, []);
+  }, [stateChange]);
 
   return (
     <DashboardLayout loading={isLoading}>
@@ -50,7 +52,7 @@ export default function AllDevicesPage() {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
-              <TableHead>Address</TableHead>
+              <TableHead>Device Name</TableHead>
               <TableHead>Machine ID</TableHead>
               <TableHead>User ID</TableHead>
               <TableHead className="text-right">Info</TableHead>
@@ -59,10 +61,10 @@ export default function AllDevicesPage() {
           </TableHeader>
 
           <TableBody>
-            {devices.map(({ id, address, machineId, userId }) => (
+            {devices.map(({ id, address, category, manufacturer, machineId, userId }) => (
               <TableRow key={id}>
                 <TableCell className="font-medium">{id}</TableCell>
-                <TableCell>{address}</TableCell>
+                <TableCell>{category.toUpperCase()} - {manufacturer.toUpperCase()}</TableCell>
                 <TableCell>{machineId}</TableCell>
                 <TableCell>{userId}</TableCell>
                 <TableCell className="text-right">
@@ -81,6 +83,7 @@ export default function AllDevicesPage() {
                     className="rounded-full text-red-500 bg-gray-200"
                     onClick={() => {
                       deleteDevice(id.toString());
+                      setStateChange(stateChange+1)
                     }}
                   >
                     <Icons.trash className="h-4 w-4" />
