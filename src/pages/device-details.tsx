@@ -36,15 +36,15 @@ export default function DeviceDetail() {
 
   const verify = async (timestamp: string, data: string) => {
 
-    let timediff = getSecondsDifference(timestamp);
-    console.log(timediff)
-    if (timediff < 20) {
-      toast({
-        title: "Data Notarizing",
-        description: "wait for few seconds",
-      });
-      return;
-    }
+    // let timediff = getSecondsDifference(timestamp);
+    // console.log(timediff)
+    // if (timediff < 20) {
+    //   toast({
+    //     title: "Data Notarizing",
+    //     description: "wait for few seconds",
+    //   });
+    //   return;
+    // }
 
     const res = await verifyData(address, data);
 
