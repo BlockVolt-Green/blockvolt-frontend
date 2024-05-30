@@ -138,6 +138,7 @@ export const login = async (
 
     if (resp.status === 200) {
       let jsn = await resp.json();
+      console.log(jsn)
       localStorage.setItem("token", jsn.token);
       return jsn.token;
     }
