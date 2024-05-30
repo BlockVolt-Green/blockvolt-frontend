@@ -48,7 +48,7 @@ export default function NFTPage() {
 
     const tokenId = parseInt(await contract.tokenOfOwnerByIndex((await wallet.getSigner()).address, tokenid));
     const tokenUrl: string = await contract.tokenURI(tokenId);
-    const tokenMetadata = await fetch("https://ipfs.io/ipfs/" + tokenUrl.slice(7, tokenUrl.length), { method: "GET" });
+    const tokenMetadata = await fetch("https://jade-content-mollusk-671.mypinata.cloud/ipfs/" + tokenUrl.slice(7, tokenUrl.length), { method: "GET" });
 
     let data = await tokenMetadata.json()
     data["tokenid"] = tokenId
