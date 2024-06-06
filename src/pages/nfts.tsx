@@ -46,13 +46,19 @@ export default function NFTPage() {
       return;
     }
 
-    const tokenId = parseInt(await contract.tokenOfOwnerByIndex((await wallet.getSigner()).address, tokenid));
-    const tokenUrl: string = await contract.tokenURI(tokenId);
-    const tokenMetadata = await fetch("https://jade-content-mollusk-671.mypinata.cloud/ipfs/" + tokenUrl.slice(7, tokenUrl.length), { method: "GET" });
+    try {
+      const tokenId = parseInt(await contract.tokenOfOwnerByIndex((await wallet.getSigner()).address, tokenid));
+      const tokenUrl: string = await contract.tokenURI(tokenId);
+      const tokenMetadata = await fetch("https://jade-content-mollusk-671.mypinata.cloud/ipfs/" + tokenUrl.slice(7, tokenUrl.length), { method: "GET" });
+  
+      let data = await tokenMetadata.json()
+      data["tokenid"] = tokenId
+      return data
+    }
 
-    let data = await tokenMetadata.json()
-    data["tokenid"] = tokenId
-    return data
+    catch (e) {
+       
+    }
 
   }
 
@@ -64,6 +70,7 @@ export default function NFTPage() {
       }
 
       const totalSupply = parseInt(await contract.totalSupply());
+      console.log(totalSupply)
       const promises = [];
 
       for (let i = 0; i < totalSupply; i++) {
