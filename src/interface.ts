@@ -18,6 +18,33 @@ export interface NotarizedData {
     factor: string,
     voltage: number,
     current: string,
+
+    // elite 440
+  voltage_phase_1: number,
+  voltage_phase_2: number,
+  voltage_phase_3: number,
+  voltage_phase_avg: number,
+
+  current_phase_1: number,
+  current_phase_2: number,
+  current_phase_3: number,
+  current_phase_avg: number,
+
+  power_factor_phase_1: number,
+  power_factor_phase_2: number,
+  power_factor_phase_3: number,
+  power_factor_phase_avg: number,
+
+  active_power_phase_1: number,
+  active_power_phase_2: number,
+  active_power_phase_3: number,
+  active_power_phase_avg: number,
+
+  apparent_power_phase_1: number,
+  apparent_power_phase_2: number,
+  apparent_power_phase_3: number,
+  apparent_power_phase_avg: number,
+
     raw: string
 }
 

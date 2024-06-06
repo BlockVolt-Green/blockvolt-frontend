@@ -17,5 +17,6 @@ type Device = {
   city: string;
   category: string;
   manufacturer: string;
+  meter_phase: string;
   data: any;
 };
