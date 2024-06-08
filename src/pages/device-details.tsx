@@ -113,7 +113,7 @@ export default function DeviceDetail() {
 
 
       {
-        data.meter_phase === "3"
+        data.meter_phase === "elite"
           ? (
             <Table>
               <TableCaption>A list of all Notarized data device {data?.category.toUpperCase()} - {data?.manufacturer.toUpperCase()}</TableCaption>
