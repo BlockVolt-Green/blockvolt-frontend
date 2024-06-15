@@ -115,22 +115,41 @@ export default function DeviceDetail() {
       {
         data.meter_phase === "elite"
           ? (
-            <Table>
+            <Table className="w-max">
               <TableCaption>A list of all Notarized data device {data?.category.toUpperCase()} - {data?.manufacturer.toUpperCase()}</TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead>Data ID</TableHead>
                   <TableHead>Time</TableHead>
+                  <TableHead>Voltage Phase 1</TableHead>
+                  <TableHead>Voltage Phase 2</TableHead>
+                  <TableHead>Voltage Phase 3</TableHead>
                   <TableHead>Voltage Phase Avg</TableHead>
+
+                  <TableHead>Current Phase 1</TableHead>
+                  <TableHead>Current Phase 2</TableHead>
+                  <TableHead>Current Phase 3</TableHead>
                   <TableHead>Current Phase Avg</TableHead>
+
+                  <TableHead>Power Factor Phase 1</TableHead>
+                  <TableHead>Power Factor Phase 2</TableHead>
+                  <TableHead>Power Factor Phase 3</TableHead>
                   <TableHead>Power Factor Phase Avg</TableHead>
+
+                  <TableHead>Active Power Phase 1</TableHead>
+                  <TableHead>Active Power Phase 2</TableHead>
+                  <TableHead>Active Power Phase 3</TableHead>
                   <TableHead>Active Power Phase Avg</TableHead>
+
+                  <TableHead>Apparent Power Phase 1</TableHead>
+                  <TableHead>Apparent Power Phase 2</TableHead>
+                  <TableHead>Apparent Power Phase 3</TableHead>
                   <TableHead>Apparent Power Phase Avg</TableHead>
                   <TableHead>Info</TableHead>
                 </TableRow>
               </TableHeader>
 
-              <TableBody>
+              <TableBody> 
                 {data?.data.map((item: NotarizedData) => (
                   <TableRow key={item?.id}>
                     <TableCell className="font-medium">{item?.id}</TableCell>
@@ -139,11 +158,30 @@ export default function DeviceDetail() {
                         timeZone: "Asia/Kolkata",
                       })}
                     </TableCell>
-                    <TableCell>{parseFloat(item?.voltage_phase_avg.toString()).toFixed(3)} V</TableCell>
-                    <TableCell>{parseFloat(item?.current_phase_avg.toString()).toFixed(3)} A</TableCell>
-                    <TableCell>{parseFloat(item?.power_factor_phase_avg.toString()).toFixed(3)} kWh</TableCell>
-                    <TableCell>{parseFloat(item?.active_power_phase_avg.toString()).toFixed(3)} kWh</TableCell>
-                    <TableCell>{item?.apparent_power_phase_avg} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.voltage_phase_1.toString()).toFixed(3)} V</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.voltage_phase_2.toString()).toFixed(3)} V</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.voltage_phase_3.toString()).toFixed(3)} V</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.voltage_phase_avg.toString()).toFixed(3)} V</TableCell>
+
+                    <TableCell className="text-center">{parseFloat(item?.current_phase_1.toString()).toFixed(3)} A</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.current_phase_2.toString()).toFixed(3)} A</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.current_phase_3.toString()).toFixed(3)} A</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.current_phase_avg.toString()).toFixed(3)} A</TableCell>
+
+                    <TableCell className="text-center">{parseFloat(item?.power_factor_phase_1.toString()).toFixed(3)} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.power_factor_phase_2.toString()).toFixed(3)} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.power_factor_phase_3.toString()).toFixed(3)} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.power_factor_phase_avg.toString()).toFixed(3)} kWh</TableCell>
+
+                    <TableCell className="text-center">{parseFloat(item?.active_power_phase_1.toString()).toFixed(3)} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.active_power_phase_2.toString()).toFixed(3)} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.active_power_phase_3.toString()).toFixed(3)} kWh</TableCell>
+                    <TableCell className="text-center">{parseFloat(item?.active_power_phase_avg.toString()).toFixed(3)} kWh</TableCell>
+
+                    <TableCell className="text-center">{item?.apparent_power_phase_1} kWh</TableCell>
+                    <TableCell className="text-center">{item?.apparent_power_phase_2} kWh</TableCell>
+                    <TableCell className="text-center">{item?.apparent_power_phase_3} kWh</TableCell>
+                    <TableCell className="text-center">{item?.apparent_power_phase_avg} kWh</TableCell>
 
 
                     <TableCell>
