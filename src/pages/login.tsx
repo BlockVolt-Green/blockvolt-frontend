@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 export default function AuthenticationPage() {
   return (
     <>
-      <div className="md:hidden">
-        <img
+      <div>
+        {/* <img
           src="/examples/authentication-light.png"
           width={1280}
           height={843}
@@ -21,10 +21,10 @@ export default function AuthenticationPage() {
           height={843}
           alt="Authentication"
           className="hidden dark:block"
-        />
+        /> */}
       </div>
 
-      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           to="/register"
           className={cn(
@@ -64,7 +64,7 @@ export default function AuthenticationPage() {
           </div>
         </div>
 
-        <div className="lg:p-8">
+        <div className="lg:p-8 md:m-0 pt-[200px]">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
